@@ -86,7 +86,7 @@ int wmain(int argc, wchar_t* argv[])
 {
 	try
 	{
-		printf("GXT Compiler/Decompiler v2.0 by Serge (aka Sergeanur)\n");
+		printf("GXT Compiler/Decompiler v2.01 by Serge (aka Sergeanur)\n");
 
 		if (argc < 2)
 		{

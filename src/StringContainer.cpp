@@ -111,11 +111,12 @@ void cStringContainer::ConvertUnicodeStringToGXTString(std::wstring& str, bool b
 void cStringContainer::ConvertGXTStringToUnicodeString(std::wstring& str, bool bIsFallthrough) const
 {
 	bool bIsTag = false;
+	bool b807EIsBusy = conversionTable.GetUnicodeChar(0x8000 | L'~') != (0x8000 | L'~');
 	for (wchar_t& wc : str)
 	{
 		bool justSet = false;
 		if (!bIsTag) {
-			bIsTag = (wc & 0x7FFF) == L'~';
+			bIsTag = b807EIsBusy ? wc == L'~' : (wc & 0x7FFF) == L'~';
 			justSet = true;
 		}
 		if (!bIsTag)
@@ -126,7 +127,7 @@ void cStringContainer::ConvertGXTStringToUnicodeString(std::wstring& str, bool b
 		else
 			wc &= 0x7FFF;
 		if (bIsTag && !justSet)
-			bIsTag = (wc & 0x7FFF) != L'~';
+			bIsTag = b807EIsBusy ? wc != L'~' : (wc & 0x7FFF) != L'~';
 	}
 }
 
